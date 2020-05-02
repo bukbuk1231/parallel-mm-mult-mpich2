@@ -57,7 +57,7 @@ void mmser(vector<vector<int> > m1, vector<vector<int> > m2) {
     int thread_id;
     MPI_Comm_rank(MPI_COMM_WORLD, &thread_id);
     if (thread_id == 0) {
-        vector<vector<int>> res = init_matrix(m, q, false);
+        vector<vector<int> > res = init_matrix(m, q, false);
 
         double timeSpent = 0.0;
         clock_t begin = clock();
@@ -120,7 +120,7 @@ void mm1d(vector<vector<int> > m1, vector<vector<int> > m2) {
         double timeSpent = 0.0;
         clock_t begin = clock();
 
-        vector<vector<int>> res = init_matrix(m, q, false);
+        vector<vector<int> > res = init_matrix(m, q, false);
         for (int i = 0; i < q; i++) {
             for (int j = 0; j < m; j++) {
                 int buff[3];
@@ -175,7 +175,7 @@ void mm2d(vector<vector<int> > m1, vector<vector<int> > m2) {
         double timeSpent = 0.0;
         clock_t begin = clock();
 
-        vector<vector<int>> res = init_matrix(m, q, false);
+        vector<vector<int> > res = init_matrix(m, q, false);
         for (int i = 0; i < n * q; i++) {
             for (int j = 0; j < m; j++) {
                 int buff[3];
