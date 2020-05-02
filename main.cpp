@@ -59,8 +59,8 @@ void mmser(vector<vector<int> > m1, vector<vector<int> > m2) {
     if (thread_id == 0) {
         vector<vector<int> > res = init_matrix(m, q, false);
 
-        double timeSpent = 0.0;
-        clock_t begin = clock();
+        timespec startTime, endTime;
+        clock_gettime(CLOCK_REALTIME, &startTime);
         for (int i = 0; i < m; i++) {
             for (int k = 0; k < n; k++) {
                 for (int j = 0; j < q; j++) {
@@ -68,9 +68,8 @@ void mmser(vector<vector<int> > m1, vector<vector<int> > m2) {
                 }
             }
         }
-        clock_t end = clock();
-        timeSpent += (double)(end - begin) / CLOCKS_PER_SEC;
-        printf("Serial Elapsed Time: %.8f seconds\n", timeSpent);
+        clock_gettime(CLOCK_REALTIME, &endTime);
+        printf("time used(sec): %.8f\n", endTime.tv_sec - startTime.tv_sec + (endTime.tv_nsec - startTime.tv_nsec) / 1000000000.);
     }
 }
 
@@ -117,8 +116,8 @@ void mm1d(vector<vector<int> > m1, vector<vector<int> > m2) {
             }
         }
     } else if (thread_id == max(m, q)) {
-        double timeSpent = 0.0;
-        clock_t begin = clock();
+        timespec startTime, endTime;
+        clock_gettime(CLOCK_REALTIME, &startTime);
 
         vector<vector<int> > res = init_matrix(m, q, false);
         for (int i = 0; i < q; i++) {
@@ -129,9 +128,8 @@ void mm1d(vector<vector<int> > m1, vector<vector<int> > m2) {
             }
         }
 
-        clock_t end = clock();
-        timeSpent += (double)(end - begin) / CLOCKS_PER_SEC;
-        printf("MM1D Elapsed Time: %.8f seconds\n", timeSpent);
+        clock_gettime(CLOCK_REALTIME, &endTime);
+        printf("time used(sec): %.8f\n", endTime.tv_sec - startTime.tv_sec + (endTime.tv_nsec - startTime.tv_nsec) / 1000000000.);
         // cout << matrix_to_string(res);
     }
 }
@@ -172,8 +170,8 @@ void mm2d(vector<vector<int> > m1, vector<vector<int> > m2) {
             }
         }
     } else if (thread_id == max(m, q) * n) {
-        double timeSpent = 0.0;
-        clock_t begin = clock();
+        timespec startTime, endTime;
+        clock_gettime(CLOCK_REALTIME, &startTime);
 
         vector<vector<int> > res = init_matrix(m, q, false);
         for (int i = 0; i < n * q; i++) {
@@ -183,9 +181,8 @@ void mm2d(vector<vector<int> > m1, vector<vector<int> > m2) {
                 res[buff[1]][buff[2]] += buff[0];
             }
         }
-        clock_t end = clock();
-        timeSpent += (double)(end - begin) / CLOCKS_PER_SEC;
-        printf("MM2D Elapsed Time: %.8f seconds\n", timeSpent);
+        clock_gettime(CLOCK_REALTIME, &endTime);
+        printf("time used(sec): %.8f\n", endTime.tv_sec - startTime.tv_sec + (endTime.tv_nsec - startTime.tv_nsec) / 1000000000.);
         // cout << matrix_to_string(res);
     }
 }
